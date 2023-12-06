@@ -1,0 +1,11 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'main:home' %}"><button>go to home</button></a>
+    {% else %}
+        <a href="{% url 'main:login' %}"><button>login</button></a>
+        or
+        <a href="{% url 'main:register' %}"><button>register</button></a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<h1>welcome, {{ user.first_name }} {{ user.last_name }}!</h1>
+<form action="{% url 'main:logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">logout</button>
+</form>
+{% endblock %}
