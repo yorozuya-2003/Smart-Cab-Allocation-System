@@ -38,8 +38,11 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            user_type = form.cleaned_data.get('user_type')
+
             user = authenticate(request, username=username, password=password)
             if user is not None:
+                request.session['user_type'] = user_type
                 login(request, user)
                 return redirect('main:home')
 
@@ -59,4 +62,9 @@ def logout_view(request):
 def home_view(request):
     user = request.user
     user = User.objects.get(email=user)
-    return render(request, 'main/home.html', {'user': user})
+
+    user_type = request.session.get('user_type')
+
+    return render(request, 'main/home.html', {
+        'user': user, 'user_type': user_type
+    })

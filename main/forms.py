@@ -5,11 +5,13 @@ from .models import User
 
 class EmailAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.TextInput(attrs={'autofocus': True}))
+    user_type = forms.ChoiceField(choices=[('rider', 'Rider'), ('driver', 'Driver')], required=True)
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].label = ''
         self.fields['password'].label = ''
+        self.fields['user_type'].label = 'enter as a'
 
         self.fields['username'].widget.attrs.update({'placeholder': 'email'})
         self.fields['password'].widget.attrs.update({'placeholder': 'password'})
